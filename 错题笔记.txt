@@ -1,0 +1,106 @@
+**错题笔记**
+@author JiangZhiyan
+
+1.使用运算符进行运算会将变量自动转换为表达式中最高的类型.
+	例:
+		public class Example001{
+			public static void main(String[] args){
+				int a = 5;
+				System.out.println("输出:"+(a>5)? 99.9:9);//会输出9.0
+			}
+		}
+		
+2.局部变量声明时必须手动初始化值,系统不会自动初始化.
+	例:
+		public class Example002{
+			public static void main(String[] args){
+				int a;
+				System.out.println(a);//编译报错,变量a未初始化
+			}
+		}
+		
+3.字符型数据输出时会转换成对应的ASCII码值再输出.
+	例:
+		public class Example003{
+			public static void main(String[] args){
+				System.out.println('5'+2);//输出55('5'对应的ASCII码值为53)
+			}
+		}
+	
+4.给变量赋值时可以用其他进制的数据赋值.
+	例:
+		public class Example004{
+			public static void main(String[] args){
+				long l = 0xfffL;
+				System.out.println(l);//编译通过,输出十进制的4095
+			}
+		}
+		
+5-1.switch语句中case分支匹配到值的话,若未在该分支下加break;则会继续执行下一个case分支(switch的穿透执行).
+5-2.方法定义了返回值类型则必须return,且return的值必须为该返回值类型,否则编译不通过.
+	例:
+		public class Example005{
+			public static void main(String[] args){
+				int result = getValue(2);
+				System.out.println(result);//输出10
+			}
+			public static int getValue(int i){
+				long result = 0;//将此处long改为int即可
+				switch(i){
+					case 1:
+						result=result+i;
+					case 2:
+						result=result+i*2;
+					case 3:
+						result=result+i*3;
+				}
+				return result;//此处返回值类型为long类型,与getValue()方法定义的返回值类型int不符,编译报错
+			}
+		}
+		
+6.自加1与自减1运算符:前++和前--先做自减1再参与运算,后++和后--先参与运算再自减1.
+	例:
+		public class Example006{
+			public static void main(String[] args){
+				int num = 0;
+				for(int i = 0;i<100;i++){
+					num=num++;//先做赋值运算再自加1,所以num一直为0
+				}
+				System.out.println(num);//输出0
+			}
+		}
+	
+7.符号&,|的用法:逻辑与/或,按位与/或(进行位运算).
+	例:
+		/*
+		十进制4转换为二进制为0100;//转换方法:0*2^3+1*2^2+0*2^1+0*2^0=4
+		十进制5转换为二进制为0101;
+		4 & 5按位运算        0100(同位都为1则为1,否则为0)
+		4 | 5按位运算        0101(同位都为0则为0,否则为1)
+		转换为十进制输出即为4.
+		*/
+		public class Example007{
+			public static void main(String[] args){
+				System.out.println(4 & 5);//输出4(0100)
+				System.out.println(4 | 5);//输出5(0101)
+			}
+		}
+		
+8.数组越界编译可以通过,但运行会抛出异常java.lang.ArrayIndexOutOfBoundsException.
+	例:
+		public class ArrayWrong {
+
+			public static void main(String[] args) {
+			int[] i = new int[5];
+			System.out.println(i[5]);//超出数组范围,编译不会报错,运行时会报错java.lang.ArrayIndexOutOfBoundsException
+			}
+
+		}
+		
+9.构造方法:
+	1.不可以被继承;
+	2.不可以被重写(不能overwrite);
+	3.可以被重载(可以overload);
+	4.可以被private修饰(只能在本类中使用)
+	
+10.
